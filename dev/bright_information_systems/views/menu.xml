@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_BIS_root"
+              name="BIS"
+              action="action_erp_solution"
+              web_icon="bright_information_systems,static/description/icon.png"
+              sequence="10"/>
+
+    <menuitem id="menu_BIS_Project"
+              name="Project"
+              parent="menu_BIS_root"
+              sequence="10"/>
+
+    <menuitem id="menu_ticket"
+              name="Raise Ticket"
+              parent="menu_BIS_root"
+              sequence="10"/>
+
+    <menuitem id="menu_raise"
+              name="View Tickets"
+              action="action_ticket_id"
+              parent="menu_ticket"
+              sequence="10"/>
+
+    <menuitem id="menu_BIS_client"
+              name="Add Client"
+              action="action_erp_solution"
+              parent="menu_BIS_Project"
+              sequence="10"/>
+
+    <menuitem id="menu_billing"
+              name="billing"
+              parent="menu_BIS_root"/>
+
+    <menuitem id="menu_invoicing"
+              name="invoice"
+              action="account.action_move_out_invoice_type"
+              parent="menu_billing"/>
+
+    <menuitem id="menu_payment"
+              name="payment"
+              action="account.action_account_payments"
+              parent="menu_billing"/>
+
+    <menuitem id="menu_age"
+              name="25+ Age Clients"
+              action="view_action_Adults"
+              parent="menu_BIS_Project"
+              sequence="20"/>
+
+    <menuitem id="menu_feedback"
+              name="Feedback"
+              action="action_feedback_list"
+              parent="menu_ticket"
+              sequence="10"/>
+</odoo>
+
+
+

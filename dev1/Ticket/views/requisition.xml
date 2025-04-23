@@ -1,0 +1,210 @@
+<?xml-stylesheet type="text/css" href="dev/bright_information_systems/static/src/css/dashboard.css"?>
+<odoo>
+    <record id="employee_requisition_form" model="ir.ui.view">
+        <field name="name">Employee Requisition form</field>
+        <field name="model">employee.requisition</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submit" type="object" invisible="state != 'draft'" string="Confirm Order"
+                            data-hotkey="q" class="oe_highlight"/>
+                    <button name="action_approve" type="object" invisible="state not in('submitted', 'partially')"
+                            string="Approve Order"
+                            class="oe_highlight" data-hotkey="y" groups="Ticket.group_procure_management"/>
+                    <button name="action_reject" type="object" invisible="state != 'submitted'" string="Reject Order"
+                            data-hotkey="z" groups="Ticket.group_procure_management"/>
+                    <button name="action_redirect_to_RFQ" type="object"
+                            invisible="state in ('draft', 'submitted', 'rejected') or all_lines_completed"
+                            string="Send RFQ"
+                            class="oe_highlight" data-hotkey="x" groups="Ticket.group_procure_management"/>
+                    <button name="action_redirect_delivery" type="object"
+                            invisible="state in ('draft', 'submitted', 'rejected') or all_internal_completed"
+                            string="Create Picking"
+                            class="oe_highlight" data-hotkey="w" groups="Ticket.group_procure_management"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,submitted,approved,completed"
+                           invisible="state == 'rejected'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,submitted"
+                           invisible="state != 'rejected'"/>
+                </header>
+                <sheet>
+                    <h1 class="d-flex">
+                        <field name="priority" widget="priority" class="me-3"/>
+                        <field name="reference"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="requested_by" readonly="state != 'draft'"/>
+                            <field name="company" readonly="state != 'draft'"/>
+                            <field name="project" readonly="state != 'draft'"/>
+                            <field name="department" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="requi_responsible" readonly="state != 'draft'"/>
+                            <field name="requisition_date" readonly="state != 'draft'"/>
+                            <field name="requisition_deadline" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Requisition Lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="picking_type" optional="show"
+                                           groups="Ticket.group_procure_management"/>
+                                    <field name="partner_id" groups="Ticket.group_procure_management"/>
+                                    <field name="picking_id" groups="Ticket.group_procure_management" optional="hide"/>
+                                    <field name="product_id" optional="show"/>
+                                    <field name="product_qty" optional="show"/>
+                                    <field name="forecast_availability" readonly="1"
+                                           groups="Ticket.group_procure_management"/>
+                                    <button type="object" name="action_product_forecast_report"
+                                            title="Forecast Report"
+                                            icon="fa-area-chart"
+                                            class="btn-primary" groups="Ticket.group_procure_management"/>
+                                    <field name="product_uom" optional="show"/>
+                                    <field name="approval_state" readonly="True"/>
+                                    <field name="status" readonly="True" widget="badge"/>
+                                    <field name="ref_rfq" optional="show"/>
+                                    <button name="action_approve_line" type="object" icon="fa-check" string="Approve"
+                                            invisible="approval_state in ('approved', 'completed')"
+                                            groups="Ticket.group_procure_management"/>
+                                    <button name="action_reject_line" type="object" icon="fa-times" string="pending"
+                                            invisible="approval_state in ('approved', 'completed', 'pending')"
+                                            groups="Ticket.group_procure_management"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Picking Details">
+                            <group>
+                                <group>
+                                    <field name="internal_picking_location_id"/>
+                                </group>
+                                <group>
+                                    <field name="destination_location_id"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_purchase_requisition_pivot" model="ir.ui.view">
+        <field name="name">employee.requisition.pivot</field>
+        <field name="model">purchase.requisition.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Purchase Requisition Pivot View">
+                <field name="status" type="column"/>
+                <field name="product_id" type="measure"/>
+                <field name="product_qty" type="measure"/>
+                <field name="forecast_availability" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="employee_requisition_list" model="ir.ui.view">
+        <field name="name">Employee Requisition list</field>
+        <field name="model">employee.requisition</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="reference" optional="show"/>
+                <field name="requested_by" optional="show"/>
+                <field name="project" optional="show"/>
+                <field name="department" optional="show"/>
+                <field name="company" optional="show"/>
+                <field name="requi_responsible" optional="show"/>
+                <field name="requisition_date" optional="show"/>
+                <field name="requisition_deadline" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="employee_requisition_search" model="ir.ui.view">
+        <field name="name">Employee Requisition Search</field>
+        <field name="model">employee.requisition</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="requested_by"/>
+                <field name="reference"/>
+                <field name="project"/>
+                <field name="department"/>
+                <field name="priority"/>
+                <field name="state"/>
+                <filter name="filter_submitted" string="Submitted" domain="[('state', '=', 'submitted')]"/>
+                <filter name="filter_partially" string="Partially Approved" domain="[('state', '=', 'partially')]"/>
+                <filter name="filter_approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <filter name="filter_completed" string="Completed" domain="[('state', '=', 'completed')]"/>
+                <filter name="filter_rejected" string="Rejected" domain="[('state', '=', 'rejected')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Project" name="group_by_project" context="{'group_by':'project'}"/>
+                    <filter string="Department" name="group_by_department" context="{'group_by':'department'}"/>
+                    <filter string="requested_by" name="group_by_requested_by" context="{'group_by':'requested_by'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="employee_requisition_kanban" model="ir.ui.view">
+        <field name="name">Employee Requisition Kanban</field>
+        <field name="model">employee.requisition</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="requisition_date"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex align-items-baseline">
+                            <field name="priority" widget="priority" class="mt-1 me-1"/>
+                            <field name="requested_by" class="fw-bolder fs-5 me-2"/>
+                            <field name="total_lines" widget="monetary" class="fw-bolder ms-auto flex-shrink-0"/>
+                        </div>
+                        <footer class="align-items-end">
+                            <div class="d-flex flex-wrap gap-1 text-nowrap">
+                                <field name="reference"/>
+                                <field name="requisition_date" options="{'show_time': false}"/>
+                            </div>
+                            <field name="state" widget="label_selection"
+                                   options="{'classes': {'draft': 'default', 'cancel': 'default', 'done': 'success', 'approved': 'warning'}}"
+                                   class="ms-auto"/>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="employee_requisition_calendar" model="ir.ui.view">
+        <field name="name">employee_requisition.calendar</field>
+        <field name="model">employee.requisition</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendar View" date_start="requisition_date" color="requested_by" delete="0" create="0">
+                <field name="requested_by"/>
+            </calendar>
+        </field>
+    </record>
+    <record id="employee_requisition_graph" model="ir.ui.view">
+        <field name="name">employee_requisition.graph</field>
+        <field name="model">employee.requisition</field>
+        <field name="arch" type="xml">
+            <graph string="Purchase Requisition" sample="1">
+                <field name="requested_by"/>
+                <field name="total_requisitions" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <data>
+        <record id="action_employee_requisition" model="ir.actions.act_window">
+            <field name="name">All Purchase Requisition</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.requisition</field>
+            <field name="view_mode">list,form,kanban,calendar,graph,pivot</field>
+        </record>
+
+        <menuitem name="All Purchase Requisition"
+                  id="menu_employee_all_requisition"
+                  parent="purchase.menu_procurement_management"
+                  sequence="0"
+                  action="action_employee_requisition"/>
+    </data>
+</odoo>

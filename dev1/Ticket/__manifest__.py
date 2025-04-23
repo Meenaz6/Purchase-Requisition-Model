@@ -1,0 +1,35 @@
+{
+    'name': 'Ticketing System',
+    'version': '1.0',
+    'author': 'Minhaj',
+    'category': 'Ticketing System Application',
+    'license': 'LGPL-3',
+    'sequence': '-1',
+    'summary': 'Easy way to raise your ticket on a single click!',
+    'depends':['web', 'base', 'base_setup','board', 'sale', 'account', 'mail', 'crm',  'project', 'bright_information_systems',
+                'purchase', 'hr', 'stock'],
+    'installable': True,
+    'application': True,
+    'data': [
+        'security/group_security.xml',
+        'security/ir.model.access.csv',
+        'views/ticketcount.xml',
+        'views/menu.xml',
+        'data/mailcustomertemplate.xml',
+        'data/maildevoptemplate.xml',
+        'reports/reports.xml',
+        'reports/summary.xml',
+        'reports/prpdf.xml',
+        'views/requisition.xml',
+        'data/sequence.xml',
+        'views/pr.xml',
+    ],
+    'external_dependencies': {
+        'python': ['streamlit', 'plotly', 'pandas'],
+    },
+    'assets': {
+        'web.assets_qweb': [
+            'Ticket/static/src/xml/dashboard_template.xml',
+        ],
+    },
+}

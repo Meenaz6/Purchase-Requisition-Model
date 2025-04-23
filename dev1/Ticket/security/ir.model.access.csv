@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+Ticket.access_ticket_counter,access_ticket_counter,Ticket.model_ticket_counter,base.group_user,1,1,1,1
+access_ir_attachment,access_ir_attachment,base.model_ir_attachment,base.group_user,1,1,1,1
+Ticket.access_employee_requisition_user,access_employee_requisition_user,Ticket.model_employee_requisition,base.group_user,1,1,1,1
+Ticket.access_employee_requisition_manager,access_employee_requisition_manager,Ticket.model_employee_requisition,base.group_system,1,1,1,1
+Ticket.access_purchase_requisition_line,access_purchase_requisition_line,Ticket.model_purchase_requisition_line,base.group_user,1,1,1,1

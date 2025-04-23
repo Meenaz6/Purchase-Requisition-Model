@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!-- Email template for ticket notification -->
+        <record id="email_template_ticket_devop" model="mail.template">
+            <field name="name">Notify Developer</field>
+            <field name="model_id" ref="model_ticket_counter"/>
+            <field name="email_from">raiseticket193@gmail.com</field>
+            <field name="email_to">{{object.assign_id.email}}</field>
+            <field name="subject">Ticket Assigned</field>
+            <field name="body_html">
+                <![CDATA[
+                    <p>Dear <t t-esc="object.assign_id.name"/> </p>
+                    <p>Ticket with id : <t t-esc="object.reference"/> is assigned to you, and the customer name is <t t-esc="object.name_id"/>.
+                     Kindly Check the Ticket and work on it.</p>
+                                         <p>Thank you.</p>
+                    </p>
+                ]]>
+            </field>
+        </record>
+    </data>
+    <data noupdate="1">
+        <!-- Email template for ticket notification -->
+        <record id="email_template_ticket_redevop" model="mail.template">
+            <field name="name">Re-assign Developer</field>
+            <field name="model_id" ref="model_ticket_counter"/>
+            <field name="email_from">raiseticket193@gmail.com</field>
+            <field name="email_to">{{object.reassign_id.email}}</field>
+            <field name="subject">Ticket Re-Assigned</field>
+            <field name="body_html">
+                <![CDATA[
+                    <p>Dear <t t-esc="object.reassign_id.name"/> </p>
+                    <p>Ticket with id : <t t-esc="object.reference"/> is Re-assigned to you, and the customer name is <t t-esc="object.name_id"/>.
+                     Kindly Check the Ticket and work on it.</p>
+                    <p>Thank you.</p>
+                    </p>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

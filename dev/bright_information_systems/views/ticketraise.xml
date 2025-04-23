@@ -1,0 +1,78 @@
+<odoo>
+    <record id="view_helpdesk_ticket_form" model="ir.ui.view">
+        <field name="name">ticket.form</field>
+        <field name="model">ticket.raise</field>
+        <field name="arch" type="xml">
+            <form string="Ticket">
+                <sheet>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name_id" readonly="reference != 'New'"/>
+                                <field name="mobile" readonly="reference != 'New'"/>
+                                <field name="email_id" readonly="reference != 'New'"/>
+                                <field name="ticket_type" readonly="reference != 'New'"/>
+                                <field name="description" placeholder="Please enter details of the problem"
+                                       readonly="reference != 'New'"/>
+                            </group>
+                            <group>
+                                <field name="reference" readonly="1"/>
+                                <field name="attachments_id" widget="many2many_binary" readonly="reference != 'New'"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <sheet invisible="state =='nil'">
+                        <group>
+                            <group>
+                                <field name="state" readonly="state != 'nil'"/>
+                                <!--                                <field name="assign_id"  readonly="state != 'nil'"/>-->
+                                <field name="priority" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="sla_deadline" readonly="state != 'nil'"/>
+                                <field name="sla_status" readonly="state != 'nil'"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <group>
+                        <div class="button-container">
+<!--                            <button name="action_open_feedback" type="object" string="Review Feedback" class="feedback2" invisible="state != 'closed'"/>-->
+                            <button name="action_close_with_feedback" string="Feedback" type="object"
+                                    class="feedback1" invisible="state not in ('closed', 'resolved')"/>
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_helpdesk_ticket_tree" model="ir.ui.view">
+        <field name="name">ticket_view</field>
+        <field name="model">ticket.raise</field>
+        <field name="arch" type="xml">
+            <list string="Tickets">
+                <field name="name_id" optional="show"/>
+                <field name="ticket_type" optional="show"/>
+                <field name="mobile" optional="show"/>
+                <field name="reference" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="search_ticket_view" model="ir.ui.view">
+        <field name="name">search ticket</field>
+        <field name="model">ticket.raise</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name_id"/>
+                <field name="mobile"/>
+                <field name="reference"/>
+                <filter name="filter_on_time" string="Tickets On-time" domain="[('sla_status', '=', 'on_time')]"/>
+                <filter name="filter_overdue" string="Tickets Overdue" domain="[('sla_status', '=', 'overdue')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_by_state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

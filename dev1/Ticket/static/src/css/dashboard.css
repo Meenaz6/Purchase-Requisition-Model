@@ -1,0 +1,60 @@
+.o_ticket_dashboard {
+    padding: 1.5rem;
+}
+
+.metrics-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.metric-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.metric-label {
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+.charts-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.chart-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex: 1;
+    min-width: 300px;
+}
+
+.chart-container h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-size: 1.2rem;
+}
+
+canvas {
+    width: 100% !important;
+    height: 300px !important;
+}

@@ -1,0 +1,83 @@
+<odoo>
+    <data>
+        <record id="action_ticket_summary" model="ir.actions.report">
+            <field name="name">Developer Summary</field>
+            <field name="model">ticket.counter</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">Ticket.report_ticket_summary</field>
+            <field name="report_file">Ticket.report_ticket_summary</field>
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="model_ticket_counter"/>
+        </record>
+
+        <template id="report_ticket_summary">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="developer">
+                        <div style="page-break-after: always;">
+                            <h2>Developer Summary</h2>
+                            <p>
+                                <strong>Name:</strong>
+                                <t t-esc="developer.assign_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Email:</strong>
+                                <t t-esc="developer.assign_id.email"/>
+                            </p>
+                            <p>
+                                <strong>Total Tickets Assigned:</strong>
+                                <t t-esc="developer.total_tickets"/>
+                            </p>
+                            <p>
+                                <strong>Total Time Spent:</strong>
+                                <t t-esc="developer.total_time"/>
+                            </p>
+
+                            <h3>Ticket Details</h3>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Ticket ID</th>
+                                        <th>Customer Name</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Ticket Type</th>
+                                        <th>Description</th>
+                                        <th>Time Spent</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="developer.assigned_tickets" t-as="ticket">
+                                        <tr>
+                                            <td>
+                                                <t t-esc="ticket.reference"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ticket.name_id"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ticket.email_id"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ticket.state"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ticket.ticket_type"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ticket.description"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ticket.time_spent"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

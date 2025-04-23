@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+bright_information_systems.access_erp_solution,access_erp_solution,bright_information_systems.model_erp_solution,base.group_user,1,1,1,1
+bright_information_systems.access_ticket_raise,access_ticket_raise,bright_information_systems.model_ticket_raise,base.group_user,1,1,1,1
+access_ir_attachment,access_ir_attachment,base.model_ir_attachment,base.group_user,1,1,1,1
+bright_information_systems.access_ticket_feedback,access_ticket_feedback,bright_information_systems.model_ticket_feedback,base.group_user,1,1,1,1

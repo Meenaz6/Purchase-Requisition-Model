@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="dev/bright_information_systems/static/src/css/style.css"?>
+<odoo>
+    <record id="erp_form_solution" model="ir.ui.view">
+        <field name="name">erp_form_solution</field>
+        <field name="model">erp.solution</field>
+        <field name="arch" type="xml">
+            <form id="form_bis">
+                <header class="header_bis">
+                    <field name="state" widget="statusbar" nolabel="1" options="{'clickable':'1'}"/>
+                </header>
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h2>
+                            <field name="priority" widget="priority" class="mr-3"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="reference" readonly="1"/>
+                            <field name="name"/>
+                            <field name="date_of_birth"/>
+                            <field name="age"/>
+                            <field name="gender"/>
+                            <field name="email"/>
+                            <field name="mobile_number"/>
+                        </group>
+                        <group>
+                            <field name="locate"/>
+                            <field name="needed"/>
+                            <field name="company"/>
+                            <field name="refer"/>
+                            <field name="active" invisible="True" widget="boolean_toggle"/>
+                            <!--                            <field name="Hide_invoice" widget="boolean_toggle"/>-->
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="ticket_page" string="Ticket">
+                            <field name="ticket_id"/>
+                        </page>
+                        <page name="Invoice_page" string="Invoice">
+                            <field name="Invoice_id" options="{'codeview':true}"/>
+                            <field name="Hide_invoice"
+                                   modifiers="{'column_invisible':[('parent.has_kits', '=', false)]}"/>
+                        </page>
+                        <page name="other_info" string="Other Info">
+                            <field name="Information" widget="text" options="{'resizable':true}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="erp_list_solution" model="ir.ui.view">
+        <field name="name">erp_list_solution</field>
+        <field name="model">erp.solution</field>
+        <field name="arch" type="xml">
+            <list class="header" sample="1">
+                <field name="ticket_id" optional="show"/>
+                <field name="reference" optional="show"/>
+                <field name="name" optional="show"/>
+                <field name="gender" optional="hide"/>
+                <field name="needed" optional="hide"/>
+                <field name="company" optional="hide"/>
+                <field name="locate" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="erp_search_solution" model="ir.ui.view">
+        <field name="name">erp_search_solution</field>
+        <field name="model">erp.solution</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="name" string="client"
+                        domain="['|', ('name', 'ilike', 'self'), ('reference', 'ilike', 'self')]"/>
+                <field name="name"/>
+                <field name="reference"/>
+                <field name="gender"/>
+                <filter name="filter_male" string="Male" domain="[('gender', '=', 'Male')]"/>
+                <filter name="filter_female" string="female" domain="[('gender', '=', 'Female')]"/>
+                <separator/>
+                <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Gender" name="group_by_gender" context="{'group_by':'gender'}"/>
+                </group>
+                <searchpanel>
+                    <field name="gender" select="multi" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <data>
+        <record id="action_erp_solution" model="ir.actions.act_window">
+            <field name="name">Clients</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">erp.solution</field>
+            <field name="view_mode">list,form,kanban</field>
+        </record>
+
+        <record id="action_ticket_id" model="ir.actions.act_window">
+            <field name="name">Raise Ticket</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ticket.raise</field>
+            <field name="view_mode">list,form,kanban</field>
+        </record>
+
+        <record id="action_feedback_list" model="ir.actions.act_window">
+            <field name="name">Ticket Feedback</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ticket.feedback</field>
+            <field name="view_mode">list,form,graph</field>
+        </record>
+    </data>
+</odoo>

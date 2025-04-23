@@ -1,0 +1,11 @@
+<odoo>
+    <menuitem id="menu_root"
+              name="Ticketing System"
+              sequence="1"/>
+
+    <menuitem id="ticket_parent_menu_id"
+              name="Ticketing System"
+              parent="menu_root"
+              sequence="10"
+              action="Ticket_Counter_project"/>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Menu Root -->
+    <menuitem 
+        id="ticket_root_menu"
+        name="Ticket Management"
+        parent="Ticket.menu_root"
+        sequence="10"/>
+
+    <!-- Dashboard Action -->
+    <record id="action_ticket_dashboard" model="ir.actions.client">
+        <field name="name">Ticket Dashboard</field>
+        <field name="tag">ticket_dashboard</field>
+    </record>
+
+    <!-- Dashboard Menu -->
+    <menuitem
+        id="menu_ticket_dashboard"
+        name="Dashboard"
+        parent="ticket_root_menu"
+        action="action_ticket_dashboard"
+        sequence="1"/>
+</odoo>

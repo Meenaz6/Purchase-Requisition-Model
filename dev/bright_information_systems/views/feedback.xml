@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_ticket_feedback_form" model="ir.ui.view">
+        <field name="name">ticket.feedback.form</field>
+        <field name="model">ticket.feedback</field>
+        <field name="arch" type="xml">
+            <form string="Provide Feedback">
+                <group>
+                    <field name="ticket_id" readonly="1"/>
+                    <field name="satisfaction_level"/>
+                    <field name="issue_relevance"/>
+                    <field name="resolution_quality"/>
+                    <field name="response_speed"/>
+                    <field name="additional_comments"/>
+                    <field name="feedback_date"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ticket_list_feedback" model="ir.ui.view">
+        <field name="name">ticket.feedback.list</field>
+        <field name="model">ticket.feedback</field>
+        <field name="arch" type="xml">
+            <list string="Feedback Analysis">
+                <field name="ticket_id"/>
+                <field name="satisfaction_level"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ticket_feedback_graph" model="ir.ui.view">
+        <field name="name">ticket.feedback.graph</field>
+        <field name="model">ticket.feedback</field>
+        <field name="arch" type="xml">
+            <graph string="Feedback Analysis">
+                <field name="satisfaction_level" type="row"/>
+                <field name="id" type="measure"/>
+            </graph>
+        </field>
+    </record>
+</odoo>

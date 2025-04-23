@@ -1,0 +1,75 @@
+.custom_style1{
+background-color:#084B83;
+color:#F0F6F6;
+height:35px;
+width:150px;
+margin-top:0.5rem;
+margin-left:68rem;
+}
+
+
+.button-container {
+    display: flex;
+    align-items: center; /* Aligns buttons vertically */
+    gap: 1rem; /* Adds spacing between buttons */
+}
+
+.feedback1, .feedback2 {
+    background-color: #084B83;
+    color: #F0F6F6;
+    height: 35px;
+    width: 150px;
+    margin-top: 0.5rem; /* Reset margins */
+    margin-left: 0.5rem;
+}
+
+.custom_style{
+background-color:#084B83;
+color:#F0F6F6;
+}
+
+.custom_style:hover{
+background-color:#40434E;
+color:#F0F6F6;
+}
+
+.header table thead tr{
+background-color:#009879;
+}
+
+.header{
+background-color:#E6E6E6;
+}
+
+.oe_save{
+background-color: #495057;
+color: white;
+}
+
+.custom-attachment-field .o_input_file{
+display: inline-block !important;
+margin-right: 10px !important;
+}
+
+/* bright_information_systems/static/src/css/ticket_notification.css */
+#custom_notification_bell {
+    position: relative;
+    cursor: pointer;
+}
+
+#custom_notification_bell .fa-bell {
+    font-size: 18px;
+    color: #333;
+}
+
+#custom_notification_bell .ticket_notification_count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 10px;
+    font-weight: bold;
+}

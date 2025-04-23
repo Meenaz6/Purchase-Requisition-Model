@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_pr_report" model="ir.actions.report">
+            <field name="name">Pr report</field>
+            <field name="model">employee.requisition</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">Ticket.report_pr_summary</field>
+            <field name="report_file">Ticket.report_pr_summary</field>
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="model_employee_requisition"/>
+        </record>
+
+        <template id="report_pr_summary">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <div style="page-break-after: always;">
+                            <h2>Purchase Requisition</h2>
+                            <p>
+                                <strong>Requested By : </strong>
+                                <t t-esc="doc.requested_by.name"/>
+                            </p>
+                            <p>
+                                <strong>Reference I'd : </strong>
+                                <t t-esc="doc.reference"/>
+                            </p>
+                            <p>
+                                <strong>Project : </strong>
+                                <t t-esc="doc.project.name"/>
+                            </p>
+                            <p>
+                                <strong>Department : </strong>
+                                <t t-esc="doc.department.name"/>
+                            </p>
+                            <p>
+                                <strong>Company : </strong>
+                                <t t-esc="doc.company.name"/>
+                            </p>
+                            <p>
+                                <strong>Requisition Responsible : </strong>
+                                <t t-esc="doc.requi_responsible.name"/>
+                            </p>
+                            <p>
+                                <strong>Requisition Date : </strong>
+                                <t t-esc="doc.requisition_date"/>
+                            </p>
+                            <p>
+                                <strong>Requisition Deadline : </strong>
+                                <t t-esc="doc.requisition_deadline"/>
+                            </p>
+
+                            <h3>Products Details</h3>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Quantity</th>
+                                        <th>Unit Price</th>
+                                        <th>Vendor</th>
+                                        <th>Requisition Action</th>
+                                        <th>Approval State</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.line_ids" t-as="product">
+                                        <tr>
+                                            <td>
+                                                <t t-esc="product.product_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="product.product_qty"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="product.price_unit"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="product.partner_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="product.picking_type"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="product.approval_state"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
