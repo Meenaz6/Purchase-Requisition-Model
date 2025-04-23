@@ -13,10 +13,7 @@
     'data': [
         'security/group_security.xml',
         'security/ir.model.access.csv',
-        'views/ticketcount.xml',
         'views/menu.xml',
-        'data/mailcustomertemplate.xml',
-        'data/maildevoptemplate.xml',
         'reports/reports.xml',
         'reports/summary.xml',
         'reports/prpdf.xml',
@@ -26,10 +23,5 @@
     ],
     'external_dependencies': {
         'python': ['streamlit', 'plotly', 'pandas'],
-    },
-    'assets': {
-        'web.assets_qweb': [
-            'Ticket/static/src/xml/dashboard_template.xml',
-        ],
     },
 }
